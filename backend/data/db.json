@@ -1,0 +1,363 @@
+{
+  "users": [
+    {
+      "_id": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "avatar": "/api/media/file/media_b2fda772eef875689472f579875e16f878516eff.jpg",
+      "bio": "Quản trị viên hệ thống Lữ Hành Việt.",
+      "createdAt": "2026-11-10T04:10:54.367Z",
+      "email": "2k7nguyenquan@gmail.com",
+      "followers": [],
+      "following": [],
+      "fullName": "Nguyễn Quân",
+      "homeCity": "Hà Nội, Việt Nam",
+      "isLocked": false,
+      "passwordHash": "$2b$10$Zm3qrHYwnBWkD5B13Ltoq.8ly0q1oZ0QDXEZ5aHal.2Wh70VHxAgO",
+      "role": "admin",
+      "savedPosts": [
+        "p_1794286115438"
+      ],
+      "username": "nguyenquan",
+      "archivedConversations": [],
+      "blockedUsers": [],
+      "deletedConversationsAt": {
+        "u_1794375301451": "2026-11-11T07:59:06.081Z",
+        "0nwqPtKT3FZracX250Nka2tCdoa2": "2026-11-11T07:59:08.850Z",
+        "0dZFibuRaxUXRHi3zw2nuGpGFNh1": "2026-11-12T04:12:08.374Z"
+      },
+      "mutedConversations": [],
+      "pinnedConversations": [],
+      "messagePrivacy": "mutual",
+      "emailVerified": true,
+      "settings": {
+        "privateProfile": false,
+        "tagsAndMentions": "following",
+        "onlineStatus": "everyone",
+        "restrictedProfiles": [],
+        "privateLikes": false,
+        "hiddenWords": [],
+        "hideLikeAndShareCounts": false,
+        "yourAlgoTopics": [
+          "Du lịch biển đảo",
+          "Ẩm thực bản địa",
+          "Leo núi & Trekking",
+          "Văn hóa di sản"
+        ],
+        "sensitiveContent": "standard",
+        "politicalContent": false,
+        "teenSupervisionEnabled": false,
+        "dailyTimeLimitMinutes": 0,
+        "sleepModeEnabled": false,
+        "twoFactorEmailOtp": false,
+        "loginAlerts": true
+      }
+    },
+    {
+      "_id": "0dZFibuRaxUXRHi3zw2nuGpGFNh1",
+      "avatar": "https://lh3.googleusercontent.com/a/ACg8ocIPoDHj-pSts-8DUaCgK_3Xi0HGrMexcXhD-1PDZ0Oj0QJgVA=s96-c",
+      "bio": "Thành viên cộng đồng Lữ Hành Việt.",
+      "createdAt": "2026-11-10T04:17:22.956Z",
+      "email": "hizakomc@gmail.com",
+      "followers": [],
+      "following": [],
+      "fullName": "Quân Nguyễn",
+      "homeCity": "Việt Nam",
+      "isLocked": false,
+      "passwordHash": "firebase_oauth_managed",
+      "role": "member",
+      "savedPosts": [],
+      "username": "hizakomc.0dZF"
+    },
+    {
+      "_id": "0nwqPtKT3FZracX250Nka2tCdoa2",
+      "avatar": "/api/media/file/media_238f2fe5514e2315876599c4ed4b87dfe84acb37.png",
+      "bio": "Thành viên cộng đồng Lữ Hành Việt.",
+      "createdAt": "2026-11-10T05:07:05.558Z",
+      "email": "mahirusosad@gmail.com",
+      "followers": [],
+      "following": [],
+      "fullName": "Quân Nguyễn",
+      "homeCity": "Việt Nam",
+      "isLocked": false,
+      "passwordHash": "firebase_oauth_managed",
+      "role": "member",
+      "savedPosts": [],
+      "username": "mahirusosad.0nwq"
+    },
+    {
+      "_id": "u_1794330722960",
+      "avatar": "/api/media/avatar/Hizako",
+      "bio": "Thành viên của cộng đồng Lữ Hành Việt.",
+      "createdAt": "2026-11-10T17:12:02.960Z",
+      "email": "quannh.b25cc192@stu.ptit.edu.vn",
+      "followers": [],
+      "following": [],
+      "fullName": "Hizako",
+      "homeCity": "Hà Nội",
+      "isLocked": false,
+      "passwordHash": "$2b$10$4ejCIm17YmVsv7GpvgB1XOUp4tKjcQl07nxwXZL.Ksym9Ys5x0lMm",
+      "role": "member",
+      "savedPosts": [],
+      "username": "hizako"
+    },
+    {
+      "_id": "u_1794375301451",
+      "avatar": "/api/media/avatar/Qu%C3%A2n",
+      "bio": "Thành viên của cộng đồng Lữ Hành Việt.",
+      "createdAt": "2026-11-11T05:35:01.451Z",
+      "email": "loduchung47@gmail.com",
+      "followers": [],
+      "following": [],
+      "fullName": "Quân",
+      "homeCity": "Hà Nội",
+      "isLocked": false,
+      "passwordHash": "$2b$10$IIdbSut9xhSdA9bz3fJRiuG37sJHMfHlyqCEBEz/7HPX.0fk4J9.W",
+      "role": "member",
+      "savedPosts": [],
+      "username": "toitenquannguu"
+    }
+  ],
+  "posts": [
+    {
+      "_id": "p_1794286115438",
+      "authorId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "commentCount": 0,
+      "content": "Đi chơi 5 ngày cùng gia đình: Đã được trải nghiệm nhiều thứ vui nhộn",
+      "coordinates": {
+        "lat": 20.9431201,
+        "lng": 105.9781462
+      },
+      "cost": 5000000,
+      "createdAt": "2026-11-10T04:48:35.438Z",
+      "durationDays": 5,
+      "hashtags": [
+        "oceanpark",
+        "funny",
+        "travel"
+      ],
+      "images": [
+        "/api/media/file/media_34d4b56afc99c19674a99b9b5f90bd0df653818b.jpg",
+        "/api/media/file/media_47ce1c48c831196378fda233e897b11d78ded2b9.jpg",
+        "/api/media/file/media_7b9622a49a0e0a20fd5678c48e7f1a1c1ffe40a0.jpg",
+        "/api/media/file/media_d74c5bef5800b3be41ac71c8d2b15a2324c7c88a.jpg",
+        "/api/media/file/media_cb3a331a0ce91e2d7514bc97aa9030b4c7e1b326.jpg"
+      ],
+      "likes": [
+        "0nwqPtKT3FZracX250Nka2tCdoa2",
+        "u_1794330722960",
+        "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+        "0dZFibuRaxUXRHi3zw2nuGpGFNh1"
+      ],
+      "location": "Ocean Park 2, Hưng Yên",
+      "provinceOrCountry": "Hưng Yên, Việt Nam",
+      "status": "active",
+      "title": "Mùa Hè đi chơi cùng gia đình!",
+      "tripDate": "2026-12-07",
+      "updatedAt": "2026-11-10T04:50:31.587Z",
+      "visibility": "public"
+    }
+  ],
+  "comments": [],
+  "notifications": [
+    {
+      "_id": "n_1794372154632",
+      "createdAt": "2026-11-11T04:42:34.632Z",
+      "isRead": true,
+      "message": "đã thích bài viết \"Mùa Hè đi chơi cùng gia đình!\".",
+      "postId": "p_1794286115438",
+      "recipientId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "senderId": "0dZFibuRaxUXRHi3zw2nuGpGFNh1",
+      "type": "like"
+    },
+    {
+      "_id": "n_1794368250828_f",
+      "createdAt": "2026-11-11T03:37:30.828Z",
+      "isRead": true,
+      "message": "đã bắt đầu theo dõi nhật ký hành trình của bạn.",
+      "recipientId": "0dZFibuRaxUXRHi3zw2nuGpGFNh1",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "type": "follow"
+    },
+    {
+      "_id": "n_1794330735140",
+      "createdAt": "2026-11-10T17:12:15.140Z",
+      "isRead": true,
+      "message": "đã thích bài viết \"Mùa Hè đi chơi cùng gia đình!\".",
+      "postId": "p_1794286115438",
+      "recipientId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "senderId": "u_1794330722960",
+      "type": "like"
+    },
+    {
+      "_id": "n_1794300514912_f",
+      "createdAt": "2026-11-10T08:48:34.912Z",
+      "isRead": true,
+      "message": "đã bắt đầu theo dõi nhật ký hành trình của bạn.",
+      "recipientId": "0nwqPtKT3FZracX250Nka2tCdoa2",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "type": "follow"
+    },
+    {
+      "_id": "n_1794300510890_f",
+      "createdAt": "2026-11-10T08:48:30.890Z",
+      "isRead": true,
+      "message": "đã bắt đầu theo dõi nhật ký hành trình của bạn.",
+      "recipientId": "0dZFibuRaxUXRHi3zw2nuGpGFNh1",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "type": "follow"
+    },
+    {
+      "_id": "n_1794300470612_f",
+      "createdAt": "2026-11-10T08:47:50.612Z",
+      "isRead": true,
+      "message": "đã bắt đầu theo dõi nhật ký hành trình của bạn.",
+      "recipientId": "0dZFibuRaxUXRHi3zw2nuGpGFNh1",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "type": "follow"
+    },
+    {
+      "_id": "n_1794300449074_f",
+      "createdAt": "2026-11-10T08:47:29.074Z",
+      "isRead": true,
+      "message": "đã bắt đầu theo dõi nhật ký hành trình của bạn.",
+      "recipientId": "0dZFibuRaxUXRHi3zw2nuGpGFNh1",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "type": "follow"
+    },
+    {
+      "_id": "n_1794287556150",
+      "createdAt": "2026-11-10T05:12:36.150Z",
+      "isRead": true,
+      "message": "đã thích bài viết \"Mùa Hè đi chơi cùng gia đình!\".",
+      "postId": "p_1794286115438",
+      "recipientId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "senderId": "0nwqPtKT3FZracX250Nka2tCdoa2",
+      "type": "like"
+    }
+  ],
+  "reports": [],
+  "messages": [
+    {
+      "_id": "m_1794370023527_fez71",
+      "content": "Chào Quân Nguyễn! Hẹn gặp bạn trong chuyến khám phá sắp tới nhé ✈️",
+      "createdAt": "2026-11-11T04:07:03.527Z",
+      "images": [],
+      "isRead": true,
+      "recipientId": "0dZFibuRaxUXRHi3zw2nuGpGFNh1",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1"
+    },
+    {
+      "_id": "m_1794370099488_jzmp7",
+      "content": "helloo",
+      "createdAt": "2026-11-11T04:08:19.488Z",
+      "images": [],
+      "isRead": true,
+      "recipientId": "0nwqPtKT3FZracX250Nka2tCdoa2",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1"
+    },
+    {
+      "_id": "m_1794370143944_rnojm",
+      "content": "xin chào bạn",
+      "createdAt": "2026-11-11T04:09:03.944Z",
+      "images": [],
+      "isRead": true,
+      "recipientId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "senderId": "0nwqPtKT3FZracX250Nka2tCdoa2"
+    },
+    {
+      "_id": "m_1794370150360_jqll2",
+      "content": "👋👋",
+      "createdAt": "2026-11-11T04:09:10.360Z",
+      "images": [],
+      "isRead": true,
+      "recipientId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "senderId": "0nwqPtKT3FZracX250Nka2tCdoa2"
+    },
+    {
+      "_id": "m_1794372138963_nfusv",
+      "content": "Hai",
+      "createdAt": "2026-11-11T04:42:18.963Z",
+      "images": [],
+      "isRead": true,
+      "recipientId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "senderId": "0dZFibuRaxUXRHi3zw2nuGpGFNh1"
+    },
+    {
+      "_id": "m_1794375352726_pyc4e",
+      "content": "Hùng Ngu",
+      "createdAt": "2026-11-11T05:35:52.726Z",
+      "images": [],
+      "isRead": true,
+      "recipientId": "u_1794375301451",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1"
+    },
+    {
+      "_id": "m_1794375382967_4p3lz",
+      "content": "Bú cu ko",
+      "createdAt": "2026-11-11T05:36:22.967Z",
+      "images": [],
+      "isRead": true,
+      "recipientId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "senderId": "u_1794375301451"
+    },
+    {
+      "_id": "m_1794375403843_062zi",
+      "content": "Quá AI",
+      "createdAt": "2026-11-11T05:36:43.843Z",
+      "images": [],
+      "isRead": true,
+      "recipientId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1",
+      "senderId": "u_1794375301451"
+    },
+    {
+      "_id": "m_1794375416279_wid6d",
+      "content": "Bú cc dcmm",
+      "createdAt": "2026-11-11T05:36:56.279Z",
+      "images": [],
+      "isRead": true,
+      "recipientId": "u_1794375301451",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1"
+    },
+    {
+      "_id": "m_1794375418713_26hps",
+      "content": "=)))",
+      "createdAt": "2026-11-11T05:36:58.713Z",
+      "images": [],
+      "isRead": true,
+      "recipientId": "u_1794375301451",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1"
+    },
+    {
+      "_id": "m_1794380272796_hzba2",
+      "content": "❤️",
+      "createdAt": "2026-11-11T06:57:52.796Z",
+      "images": [
+        "/api/media/file/media_3ced3d807a71c4776296ff8254732e248570ed8f.webp"
+      ],
+      "isRead": false,
+      "recipientId": "u_1794375301451",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1"
+    },
+    {
+      "_id": "m_1794456185358_zk4or",
+      "content": "Cuối tuần đi chỗ này không?\n\n📍 Chia sẻ hành trình: \"Mùa Hè đi chơi cùng gia đình!\"\n🗺️ Điểm đến: Ocean Park 2, Hưng Yên (Hưng Yên, Việt Nam) · 5 ngày · Chi phí 5.000.000 ₫\n🔗 Xem bài viết: https://ais-pre-oppr4kvjd5auvujtz7a72t-788671996133.asia-southeast1.run.app/posts/p_1794286115438",
+      "createdAt": "2026-11-12T04:03:05.358Z",
+      "images": [
+        "/api/media/file/media_34d4b56afc99c19674a99b9b5f90bd0df653818b.jpg"
+      ],
+      "isRead": false,
+      "recipientId": "0dZFibuRaxUXRHi3zw2nuGpGFNh1",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1"
+    },
+    {
+      "_id": "m_1794456715577_4mqt4",
+      "content": "📍 Chia sẻ hành trình: \"Mùa Hè đi chơi cùng gia đình!\"\n🗺️ Điểm đến: Ocean Park 2, Hưng Yên (Hưng Yên, Việt Nam) · 5 ngày · Chi phí 5.000.000 ₫\n🔗 Xem bài viết: https://ais-pre-oppr4kvjd5auvujtz7a72t-788671996133.asia-southeast1.run.app/posts/p_1794286115438",
+      "createdAt": "2026-11-12T04:11:55.577Z",
+      "images": [
+        "/api/media/file/media_34d4b56afc99c19674a99b9b5f90bd0df653818b.jpg"
+      ],
+      "isRead": false,
+      "recipientId": "0dZFibuRaxUXRHi3zw2nuGpGFNh1",
+      "senderId": "G7W2NxsKaURQJtiaBAIKaHj3xLy1"
+    }
+  ]
+}
