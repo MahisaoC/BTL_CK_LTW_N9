@@ -86,7 +86,12 @@ export function getServerGmailAccessToken(): string | null {
   return activeServerGmailAccessToken;
 }
 
-function resolveSmtpCredentials(): { user: string; pass: string; host: string } {
+function resolveSmtpCredentials(): {
+  user: string;
+  pass: string;
+  host: string;
+  scriptUrl: string;
+} {
   const user = (
     process.env.SMTP_USER ||
     process.env.EMAIL_USER ||
@@ -101,12 +106,18 @@ function resolveSmtpCredentials(): { user: string; pass: string; host: string } 
     ''
   ).replace(/\s+/g, '');
   const host = (process.env.SMTP_HOST || 'smtp.gmail.com').trim();
-  return { user, pass, host };
+  const scriptUrl = (
+    process.env.GOOGLE_SCRIPT_URL ||
+    process.env.APPS_SCRIPT_URL ||
+    process.env.GMAIL_SCRIPT_URL ||
+    ''
+  ).trim();
+  return { user, pass, host, scriptUrl };
 }
 
 export function isServerMailerConfigured(): boolean {
-  const { user, pass } = resolveSmtpCredentials();
-  return Boolean(activeServerGmailAccessToken || (user && pass));
+  const { user, pass, scriptUrl } = resolveSmtpCredentials();
+  return Boolean(scriptUrl || activeServerGmailAccessToken || (user && pass));
 }
 
 const OTP_TTL_MS = 10 * 60 * 1000; // 10 minutes
@@ -245,9 +256,39 @@ export async function sendVerificationEmailLetter(params: {
   let smtpStatus = '';
   let deliveredToRealEmail = false;
 
-  // 1. Ưu tiên gửi qua Nodemailer SMTP của hệ thống (luhanhvietltw@gmail.com)
-  const { user: smtpUser, pass: smtpPass, host: smtpHost } = resolveSmtpCredentials();
-  if (smtpUser && smtpPass) {
+  const {
+    user: smtpUser,
+    pass: smtpPass,
+    host: smtpHost,
+    scriptUrl,
+  } = resolveSmtpCredentials();
+
+  // 1. Ưu tiên gửi qua Google Apps Script Web App (cổng HTTPS 443 - KHÔNG BỊ RENDER FREE TIER CHẶN)
+  if (scriptUrl) {
+    try {
+      const response = await fetch(scriptUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: normalizedEmail,
+          subject,
+          htmlBody,
+          otpCode,
+        }),
+        redirect: 'follow',
+      });
+      if (response.ok) {
+        deliveredToRealEmail = true;
+        deliveryChannel = 'smtp_and_inbox';
+        smtpStatus = `Đã gửi từ ${smtpUser} tới hộp thư ${normalizedEmail}`;
+      }
+    } catch {
+      deliveredToRealEmail = false;
+    }
+  }
+
+  // 2. Gửi qua Nodemailer SMTP (hoạt động trên máy local hoặc gói trả phí mở cổng 465/587)
+  if (!deliveredToRealEmail && smtpUser && smtpPass) {
     const portsToTry = [465, 587];
     for (const port of portsToTry) {
       if (deliveredToRealEmail) break;
@@ -263,9 +304,9 @@ export async function sendVerificationEmailLetter(params: {
           tls: {
             rejectUnauthorized: false,
           },
-          connectionTimeout: 10000,
-          greetingTimeout: 10000,
-          socketTimeout: 12000,
+          connectionTimeout: 3500,
+          greetingTimeout: 3500,
+          socketTimeout: 5000,
         });
 
         await transporter.sendMail({
@@ -284,7 +325,7 @@ export async function sendVerificationEmailLetter(params: {
     }
   }
 
-  // 2. Dự phòng qua Gmail API nếu có OAuth token trên máy chủ
+  // 3. Dự phòng qua Gmail API (HTTPS 443) nếu có OAuth token trên máy chủ
   if (!deliveredToRealEmail) {
     const providedToken = params.gmailAccessToken?.trim() || null;
     const candidateToken = providedToken || activeServerGmailAccessToken;
@@ -311,7 +352,7 @@ export async function sendVerificationEmailLetter(params: {
     }
   }
 
-  // 3. Nếu cổng SMTP bị chặn trên gói miễn phí, không bao giờ báo lỗi 428 bắt mở popup
+  // 4. Dự phòng: Nếu Render Free Tier chặn cổng SMTP và chưa có GOOGLE_SCRIPT_URL, trả mã trực tiếp lên thông báo web
   if (!deliveredToRealEmail) {
     deliveryChannel = 'smtp_and_inbox';
     smtpStatus = `Mã xác nhận 6 số của bạn là: ${otpCode}`;
