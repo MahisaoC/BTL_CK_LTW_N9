@@ -230,11 +230,40 @@ export const PostFormPage: React.FC<PostModalProps> = ({
       });
   }, [id, t]);
 
-  // Tự động định vị tọa độ bản đồ khi người dùng nhập Địa điểm / Topic
+ const handleLocationChange = (nextLoc: string) => {
+    setLocation(nextLoc);
+    setCoordinates(null);
+    setProvinceOrCountry('Việt Nam');
+  };
+
+  const handleProvinceChange = (nextProv: string) => {
+    setProvinceOrCountry(nextProv);
+    const cleanProv = nextProv.trim();
+    if (cleanProv.length >= 2) {
+      apiRequest<{
+        coordinates: { lat: number; lng: number };
+        province: string;
+      }>(`/api/posts/geocode?q=${encodeURIComponent(cleanProv)}`)
+        .then((res) => {
+          setCoordinates(res.coordinates);
+          const shortName = cleanProv.split(',')[0]?.trim() || cleanProv;
+          if (
+            !location.trim() ||
+            location.trim().toLowerCase() !== shortName.toLowerCase()
+          ) {
+            setLocation(shortName);
+          }
+        })
+        .catch(() => {});
+    }
+  };
+
+  // Tự động định vị tọa độ bản đồ và đồng bộ Tỉnh/Thành phố mỗi khi người dùng nhập hoặc đổi Địa điểm
   useEffect(() => {
     const clean = debouncedLocation.trim();
     if (clean.length < 2) {
       setCoordinates(null);
+      setProvinceOrCountry('Việt Nam');
       return;
     }
 
@@ -247,13 +276,7 @@ export const PostFormPage: React.FC<PostModalProps> = ({
       .then((res) => {
         if (!active) return;
         setCoordinates(res.coordinates);
-        if (
-          res.province &&
-          (!provinceOrCountry.trim() ||
-            provinceOrCountry.trim().toLowerCase() === 'việt nam')
-        ) {
-          setProvinceOrCountry(res.province);
-        }
+        setProvinceOrCountry(res.province || 'Việt Nam');
       })
       .catch(() => {})
       .finally(() => {
@@ -263,7 +286,7 @@ export const PostFormPage: React.FC<PostModalProps> = ({
     return () => {
       active = false;
     };
-  }, [debouncedLocation, provinceOrCountry]);
+  }, [debouncedLocation]);
 
   const handleCloseModal = () => {
     if (onClose) {
