@@ -16,7 +16,7 @@ import {
 
 export const authRouter = Router();
 
-// GET /api/auth/mailer-status - Kiểm tra xem máy chủ đã có kết nối gửi thư Gmail/SMTP sẵn sàng chưa
+// GET /api/auth/mailer-status
 authRouter.get('/mailer-status', (_req, res) => {
   res.status(200).json({
     ready: isServerMailerConfigured(),
@@ -41,7 +41,7 @@ function extractRequestGmailToken(req: {
 // POST /api/auth/firebase - Đồng bộ tài khoản Google Sign-In (Firebase Auth) vào MongoDB Atlas
 authRouter.post('/firebase', async (req, res, next) => {
   try {
-   const bodyIdToken = String(req.body?.idToken || '').trim();
+    const bodyIdToken = String(req.body?.idToken || '').trim();
     const authHeader = req.headers.authorization;
     const token =
       bodyIdToken ||
@@ -103,7 +103,7 @@ authRouter.post('/firebase', async (req, res, next) => {
   }
 });
 
-// POST /api/auth/register/send-code - Gửi thư chứa mã OTP 6 số trực tiếp tới hộp thư Email khi đăng ký (không trả mã về web)
+// POST /api/auth/register/send-code
 authRouter.post('/register/send-code', async (req, res, next) => {
   try {
     const { fullName, username, email, password } = req.body ?? {};
@@ -150,19 +150,22 @@ authRouter.post('/register/send-code', async (req, res, next) => {
       gmailAccessToken,
     });
 
+    const isDirectFallback = Boolean(letter.smtpStatus?.startsWith('Mã xác nhận 6 số'));
     res.status(200).json({
       sent: true,
       email: normalizedEmail,
       expiresInSeconds: 600,
       deliveryStatus: letter.smtpStatus,
-      message: `Đã gửi thư chứa mã xác nhận 6 chữ số tới hộp thư ${normalizedEmail}. Vui lòng mở ứng dụng Email (Gmail) để lấy mã.`,
+      message: isDirectFallback
+        ? letter.smtpStatus
+        : `Đã gửi thư chứa mã xác nhận 6 chữ số từ luhanhvietltw@gmail.com tới hộp thư ${normalizedEmail}. Vui lòng mở Gmail để lấy mã.`,
     });
   } catch (err) {
     next(err);
   }
 });
 
-// POST /api/auth/register - Hoàn tất đăng ký sau khi xác nhận đúng mã OTP từ thư email
+// POST /api/auth/register
 authRouter.post('/register', async (req, res, next) => {
   try {
     const {
@@ -213,7 +216,6 @@ authRouter.post('/register', async (req, res, next) => {
 
     const passwordHash = await bcrypt.hash(String(password), 10);
 
-    // Nếu chủ hệ thống (2k7nguyenquan@gmail.com) đăng ký, cập nhật mật khẩu vào tài khoản Admin đã tạo sẵn
     if (normalizedEmail === '2k7nguyenquan@gmail.com') {
       const adminIdx = db.state.users.findIndex(
         (u) => u.email.toLowerCase() === '2k7nguyenquan@gmail.com'
@@ -343,7 +345,7 @@ authRouter.post('/login', async (req, res, next) => {
   }
 });
 
-// POST /api/auth/forgot-password/send-code - Quên mật khẩu: gửi mã OTP 6 số trực tiếp tới hộp thư Email
+// POST /api/auth/forgot-password/send-code
 authRouter.post('/forgot-password/send-code', async (req, res, next) => {
   try {
     const rawKey = String(req.body?.email || req.body?.identifier || '')
@@ -371,20 +373,23 @@ authRouter.post('/forgot-password/send-code', async (req, res, next) => {
       gmailAccessToken,
     });
 
+    const isDirectFallback = Boolean(letter.smtpStatus?.startsWith('Mã xác nhận 6 số'));
     res.status(200).json({
       sent: true,
       email: found.email,
       username: found.username,
       expiresInSeconds: 600,
       deliveryStatus: letter.smtpStatus,
-      message: `Mã khôi phục mật khẩu gồm 6 chữ số đã được gửi trực tiếp vào hộp thư ${found.email}. Vui lòng kiểm tra Gmail của bạn.`,
+      message: isDirectFallback
+        ? letter.smtpStatus
+        : `Mã khôi phục mật khẩu gồm 6 chữ số đã được gửi từ luhanhvietltw@gmail.com vào hộp thư ${found.email}. Vui lòng kiểm tra Gmail của bạn.`,
     });
   } catch (err) {
     next(err);
   }
 });
 
-// POST /api/auth/forgot-password/reset - Xác nhận mã OTP email và đặt lại mật khẩu mới
+// POST /api/auth/forgot-password/reset
 authRouter.post('/forgot-password/reset', async (req, res, next) => {
   try {
     const rawKey = String(req.body?.email || req.body?.identifier || '')
@@ -447,7 +452,7 @@ authRouter.post('/forgot-password/reset', async (req, res, next) => {
   }
 });
 
-// POST /api/auth/change-password/send-code - Gửi mã xác thực OTP trực tiếp tới hộp thư email của tài khoản đang đăng nhập
+// POST /api/auth/change-password/send-code
 authRouter.post('/change-password/send-code', requireAuth, async (req, res, next) => {
   try {
     const user = db.state.users.find((u) => u._id === req.user?.sub);
@@ -463,19 +468,22 @@ authRouter.post('/change-password/send-code', requireAuth, async (req, res, next
       gmailAccessToken,
     });
 
+    const isDirectFallback = Boolean(letter.smtpStatus?.startsWith('Mã xác nhận 6 số'));
     res.status(200).json({
       sent: true,
       email: user.email,
       expiresInSeconds: 600,
       deliveryStatus: letter.smtpStatus,
-      message: `Đã gửi mã bảo mật 6 chữ số trực tiếp vào hộp thư ${user.email}. Vui lòng mở Gmail để kiểm tra.`,
+      message: isDirectFallback
+        ? letter.smtpStatus
+        : `Đã gửi mã bảo mật 6 chữ số từ luhanhvietltw@gmail.com vào hộp thư ${user.email}. Vui lòng mở Gmail để kiểm tra.`,
     });
   } catch (err) {
     next(err);
   }
 });
 
-// POST /api/auth/change-password - Đổi mật khẩu (bằng mật khẩu hiện tại hoặc mã OTP email)
+// POST /api/auth/change-password
 authRouter.post('/change-password', requireAuth, async (req, res, next) => {
   try {
     const userIdx = db.state.users.findIndex((u) => u._id === req.user?.sub);
