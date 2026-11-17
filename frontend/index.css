@@ -1,0 +1,72 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-serif: 'Fraunces', Georgia, serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, .font-editorial {
+    font-family: var(--font-serif);
+  }
+
+  .font-mono-num {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom Leaflet popup styling for clean editorial look */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px !important;
+  padding: 2px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
+}
+.leaflet-container {
+  font-family: var(--font-sans) !important;
+  z-index: 10;
+}
+
+/* Hide scrollbars on horizontal filter/action bars */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Subtle custom scrollbars for chat and conversation lists */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(161, 161, 170, 0.3) transparent;
+}
+.dark .custom-scrollbar {
+  scrollbar-color: rgba(82, 82, 91, 0.45) transparent;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(161, 161, 170, 0.3);
+  border-radius: 9999px;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(82, 82, 91, 0.45);
+}
+
