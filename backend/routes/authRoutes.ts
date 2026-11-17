@@ -41,11 +41,13 @@ function extractRequestGmailToken(req: {
 // POST /api/auth/firebase - Đồng bộ tài khoản Google Sign-In (Firebase Auth) vào MongoDB Atlas
 authRouter.post('/firebase', async (req, res, next) => {
   try {
+   const bodyIdToken = String(req.body?.idToken || '').trim();
     const authHeader = req.headers.authorization;
     const token =
-      authHeader && authHeader.startsWith('Bearer ')
+      bodyIdToken ||
+      (authHeader && authHeader.startsWith('Bearer ')
         ? authHeader.slice(7).trim()
-        : String(req.body?.idToken || '').trim();
+        : '');
 
     if (!token) {
       throw new HttpError(401, 'Thiếu Firebase ID Token.');
