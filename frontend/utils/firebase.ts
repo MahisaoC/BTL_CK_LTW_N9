@@ -16,20 +16,16 @@ const firebaseConfig = {
   messagingSenderId: '950856786369',
 };
 
-export const SCOPES = ['https://www.googleapis.com/auth/gmail.send'];
+export const SCOPES: string[] = [];
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export const googleAuthProvider = new GoogleAuthProvider();
-for (const scope of SCOPES) {
-  googleAuthProvider.addScope(scope);
-}
 googleAuthProvider.setCustomParameters({
-  prompt: 'consent',
+  prompt: 'select_account',
 });
 
-// In-memory cache for the Google Workspace OAuth access token (never stored in localStorage/sessionStorage)
 let isSigningIn = false;
 let cachedAccessToken: string | null = null;
 
@@ -51,10 +47,6 @@ export const clearGmailAccessToken = (): void => {
   cachedAccessToken = null;
 };
 
-/**
- * Initiates Google Sign-In popup requesting the Gmail send scope and caches the OAuth access token in memory.
- * Must be invoked directly from a user click handler so browsers never block the popup.
- */
 export const connectGmailWithPopup = async (): Promise<{
   user: FirebaseUser;
   accessToken: string;
@@ -64,11 +56,8 @@ export const connectGmailWithPopup = async (): Promise<{
     isSigningIn = true;
     const result = await signInWithPopup(auth, googleAuthProvider);
     const credential = GoogleAuthProvider.credentialFromResult(result);
-    if (!credential?.accessToken) {
-      throw new Error('Không lấy được quyền truy cập Gmail từ Google OAuth.');
-    }
     const idToken = await result.user.getIdToken();
-    cachedAccessToken = credential.accessToken;
+    cachedAccessToken = credential?.accessToken || '';
     return {
       user: result.user,
       accessToken: cachedAccessToken,
