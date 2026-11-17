@@ -34,11 +34,11 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [serverMailerReady, setServerMailerReady] = useState<boolean>(false);
+  const [serverMailerReady, setServerMailerReady] = useState<boolean>(true);
 
   useEffect(() => {
     apiRequest<{ ready: boolean }>('/api/auth/mailer-status')
-      .then((res) => setServerMailerReady(Boolean(res.ready)))
+      .then((res) => setServerMailerReady(res.ready ?? true))
       .catch(() => {});
   }, []);
 
@@ -52,6 +52,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             '/api/auth/firebase',
             {
               method: 'POST',
+              headers: {
+                Authorization: `Bearer ${idToken}`,
+              },
               body: JSON.stringify({
                 idToken,
                 gmailAccessToken: gmailToken || undefined,
@@ -60,9 +63,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           );
           if (data.token) {
             setStoredToken(data.token);
-          }
-          if (gmailToken) {
-            setServerMailerReady(true);
           }
           setUser(data.user);
         } catch {
@@ -108,10 +108,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const loginWithGoogle = useCallback(async (): Promise<User> => {
     const { idToken, accessToken } = await connectGmailWithPopup();
-    setServerMailerReady(true);
 
     const data = await apiRequest<{ user: User; token: string }>('/api/auth/firebase', {
       method: 'POST',
+      headers: {
+        Authorization: `Bearer ${idToken}`,
+      },
       body: JSON.stringify({ idToken, gmailAccessToken: accessToken }),
     });
     setStoredToken(data.token || idToken);
@@ -119,21 +121,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return data.user;
   }, []);
 
-  const ensureGmailTokenForEmailSend = useCallback(
-    async (forcePopup = false): Promise<string> => {
-      const existing = getGmailAccessToken();
-      if (!forcePopup && existing) {
-        return existing;
-      }
-      if (!forcePopup && serverMailerReady) {
-        return '';
-      }
-      const { accessToken } = await connectGmailWithPopup();
-      setServerMailerReady(true);
-      return accessToken;
-    },
-    [serverMailerReady]
-  );
+  // Không bao giờ bật popup bắt người dùng đăng nhập Gmail khi bấm Gửi mã OTP (luôn gửi trực tiếp từ email hệ thống luhanhvietltw@gmail.com ở Backend)
+  const ensureGmailTokenForEmailSend = useCallback(async (): Promise<string> => {
+    return '';
+  }, []);
 
   const register = useCallback(
     async (payload: {
